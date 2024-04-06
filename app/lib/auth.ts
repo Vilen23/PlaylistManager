@@ -3,7 +3,6 @@ import prisma from "./db";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import DiscordProvider from "next-auth/providers/discord";
-import { signIn } from "next-auth/react";
 export const NEXT_AUTH = {
   providers: [
     GitHubProvider({
@@ -64,12 +63,9 @@ export const NEXT_AUTH = {
       session.user.id = token.sub;
       return session;
     },
-    // async signIn(user: any, account: any, profile: any) {
-    //   console.log(user);
-    // }
     async signIn(user: any) {
       if (user.account.provider === "github") {
-        const { login, email, avatar_url } = user.profile;
+        const { login, email, avatar_url ,name } = user.profile;
         const existingUser = await prisma.user.findFirst({
           where: {
             name: login,

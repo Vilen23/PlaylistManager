@@ -20,13 +20,13 @@ export default  function Appbar() {
   };
 
   return (
-    <div className="px-40">
-      <div className="w-full h-[120px] bg-transparent border-b border-white px-20 py-10 text-white flex justify-between items-center">
-        <h1 className={`${rubic.className} text-white font-extrabold text-5xl flex`}>
+    <div className=" px-10 md:px-40">
+      <div className="w-full h-[120px] bg-transparent border-b border-white px-5 md:px-20 py-10 text-white flex justify-between items-center">
+        <h1 className={`${rubic.className} text-white font-extrabold  text-3xl md:text-5xl flex`}>
           PlayIT <span className="text-[#39FF14]"><Music2Icon/></span>
         </h1>
 
-        <nav>
+        <nav className="hidden md:flex">
           <ul className="flex gap-10 text-xl">
             <li onClick={()=>{
               router.push("/")
