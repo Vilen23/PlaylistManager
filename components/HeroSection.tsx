@@ -1,11 +1,16 @@
+"use client"
 import React from "react";
 import {
   TextRevealCard
 } from "./ui/text-reveal-card";
 import CrouselAlbumCover from "./CrouselAlbumCover";
 import HeadingHero from "./HeadingHero";
+import { useRecoilValue } from "recoil";
+import { loadingHeroAtom } from "@/Store/atoms/loadingHero";
+import axios from "axios";
 
 export default function HeroSection() {
+  const loading =  useRecoilValue(loadingHeroAtom);
   return (
     <div>
       <div className=" items-center justify-center bg-[#111] rounded-2xl w-[full] sm:flex hidden overflow-x-hidden">
@@ -19,6 +24,11 @@ export default function HeroSection() {
         <HeadingHero />
         <CrouselAlbumCover />
       </div>
+        <button onClick={async ()=>{
+          window.location.href = "/api/spotify/login"
+        }}>
+          connect spotify
+        </button>
     </div>
   );
 }

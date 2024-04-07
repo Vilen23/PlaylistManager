@@ -4,7 +4,7 @@ import AnimatedIcons from "./AnimatedIcons";
 const bebas = Poppins({ weight: "800", subsets: ["latin"] });
 export default function HeadingHero() {
   return (
-    <div className="w-full flex items-center justify-center h-full flex-col">
+    <div className="w-full flex items-center justify-center h-full flex-col md:pl-20">
       <h1 className={`${bebas.className} font-bold md:text-[58px] text-4xl text-center`}>
         Discover The Best Music Daily
       </h1>
