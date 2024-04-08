@@ -24,11 +24,6 @@ export default function HeroSection() {
         <HeadingHero />
         <CrouselAlbumCover />
       </div>
-        <button onClick={async ()=>{
-          window.location.href = "/api/spotify/login"
-        }}>
-          connect spotify
-        </button>
     </div>
   );
 }
