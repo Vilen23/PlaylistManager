@@ -1,6 +1,10 @@
 import { atom } from "recoil";
+import {recoilPersist} from 'recoil-persist'
+
+const {persistAtom} = recoilPersist();
 
 export const spotifyUserAtom = atom({
     key: "spotifyUser",
-    default:{}
+    default:{},
+    effects_UNSTABLE: [persistAtom],
 })

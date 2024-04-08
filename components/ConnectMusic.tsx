@@ -2,30 +2,30 @@
 import React, { useEffect } from "react";
 import { Oswald } from "next/font/google";
 import Image from "next/image";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { connectedAtom } from "@/Store/atoms/Connected";
 import { Check, CrossIcon } from "lucide-react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { spotifyUserAtom } from "@/Store/atoms/spotifyuser";
 const oswald = Oswald({ weight: "600", subsets: ["latin"] });
 
 export default function ConnectMusic() {
   const [connected, setConnected] = useRecoilState(connectedAtom);
-    const router = useRouter();
+  const setSpotifyuser = useSetRecoilState(spotifyUserAtom);
+  const router = useRouter();
   const handleSpotify = () => {
     try {
-      if(!connected.spotify){
+      if (!connected.spotify) {
         const getuser = async () => {
-            const response = await axios.get("/api/spotify/getuser");
-            if(response.data){
-                console.log(response.data)
-                router.push("/dashboard")
-            }
-        }
+          const response = await axios.get("/api/spotify/getuser");
+          if (response.data) {
+            setSpotifyuser(response.data);
+            router.push("/dashboard");
+          }
+        };
         getuser();
-
-      }
-      else{
+      } else {
         window.location.href = "/api/spotify/login";
         setConnected((prev) => ({ ...prev, spotify: true }));
       }
@@ -49,7 +49,7 @@ export default function ConnectMusic() {
               <Image src="/spotify1.png" alt="spotify" height={40} width={40} />
             </span>
             Spotify
-            <span>{connected.spotify ? <CrossIcon/>  : <Check />}</span>
+            <span>{connected.spotify ? <CrossIcon /> : <Check />}</span>
           </button>
           <button className="rounded-xl  flex px-3 py-2 gap-2 items-center  text-xl hover:scale-105 transition-all ease-in-out duration-500">
             <span>
