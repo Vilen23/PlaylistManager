@@ -4,29 +4,33 @@ import { Oswald } from "next/font/google";
 import Image from "next/image";
 import { useRecoilState } from "recoil";
 import { connectedAtom } from "@/Store/atoms/Connected";
-import { Check, Cross } from "lucide-react";
-import { useCookies } from "next-client-cookies";
+import { Check, CrossIcon } from "lucide-react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 const oswald = Oswald({ weight: "600", subsets: ["latin"] });
 
 export default function ConnectMusic() {
   const [connected, setConnected] = useRecoilState(connectedAtom);
-    const cookies = useCookies();
-  useEffect(() => {
-    const spotifyToken = cookies.get("spotify_token");
-    console.log(spotifyToken);
-    if (spotifyToken) {
-      setConnected((prev) => ({ ...prev, spotify: true }));
-    } else {
-      setConnected((prev) => ({ ...prev, spotify: false }));
-    }
-  }, []);
+    const router = useRouter();
   const handleSpotify = () => {
     try {
-      window.location.href = "/api/spotify/login";
-      setConnected((prev) => ({ ...prev, spotify: true }));
+      if(!connected.spotify){
+        const getuser = async () => {
+            const response = await axios.get("/api/spotify/getuser");
+            if(response.data){
+                console.log(response.data)
+                router.push("/dashboard")
+            }
+        }
+        getuser();
+
+      }
+      else{
+        window.location.href = "/api/spotify/login";
+        setConnected((prev) => ({ ...prev, spotify: true }));
+      }
     } catch (error) {
       console.log(error);
-      setConnected((prev) => ({ ...prev, spotify: false }));
     }
   };
   return (
@@ -45,7 +49,7 @@ export default function ConnectMusic() {
               <Image src="/spotify1.png" alt="spotify" height={40} width={40} />
             </span>
             Spotify
-            <span>{connected.spotify ? "con" : <Cross />}</span>
+            <span>{connected.spotify ? <CrossIcon/>  : <Check />}</span>
           </button>
           <button className="rounded-xl  flex px-3 py-2 gap-2 items-center  text-xl hover:scale-105 transition-all ease-in-out duration-500">
             <span>
