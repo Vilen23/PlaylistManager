@@ -43,8 +43,8 @@ export default function SpotifyHeader() {
         </div>
         <div>
           <HoverCard>
-            <HoverCardTrigger className="text-xl text-[#39FF14]">Email</HoverCardTrigger>
-            <HoverCardContent className="text-sm bg-[#111] border-[1px]">{spotifyUser.user.email}</HoverCardContent>
+            <HoverCardTrigger className="text-xl text-[#39FF14] cursor-pointer">Email</HoverCardTrigger>
+            <HoverCardContent className="text-sm bg-[#111] border-[1px] ">{spotifyUser.user.email}</HoverCardContent>
           </HoverCard>
         </div>
       </div>

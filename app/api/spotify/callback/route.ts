@@ -40,7 +40,7 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
     };
     cookies().set("spotify_token", token, cookieOptions);
     cookies().set("spotify_refresh_token", refreshToken, cookieOptions);
-    return NextResponse.redirect("http://localhost:3000/");
+    return NextResponse.redirect("http://localhost:3000/ConnectMusic");
   } catch (error) {
     console.error("Error in tokens", error);
     return new NextResponse("ERROR", { status: 500 });

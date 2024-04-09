@@ -19,7 +19,6 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
       return NextResponse.json({ user: null }, { status: 404 });
     }
   } catch (error) {
-    console.log(error);
-    return new NextResponse("ERROR", { status: 500 });
+    return new NextResponse("ERROR", { status: 200 });
   }
 };

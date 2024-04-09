@@ -1,36 +1,35 @@
 "use client";
-import React, { useEffect } from "react";
-import { Oswald } from "next/font/google";
+import React from "react";
 import Image from "next/image";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { connectedAtom } from "@/Store/atoms/Connected";
 import { Check, CrossIcon } from "lucide-react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { spotifyUserAtom } from "@/Store/atoms/spotifyuser";
-const oswald = Oswald({ weight: "600", subsets: ["latin"] });
-
 export default function ConnectMusic() {
   const [connected, setConnected] = useRecoilState(connectedAtom);
-  const setSpotifyuser = useSetRecoilState(spotifyUserAtom);
+  const [spotifyuser, setSpotifyUser] = useRecoilState(spotifyUserAtom);
   const router = useRouter();
+
   const handleSpotify = () => {
     try {
-      if (!connected.spotify) {
+      if (!spotifyuser.display_name) {
         const getuser = async () => {
-          const response = await axios.get("/api/spotify/getuser");
-          if (response.data) {
-            setSpotifyuser(response.data);
-            router.push("/dashboard");
-          }
+          const response = await axios.get("/api/spotify/refresh_token");
+          const res = await axios.get("/api/spotify/getuser");
+          setSpotifyUser(res.data);
+          router.push("/dashboard");
+          setConnected((prev) => ({ ...prev, spotify: true }));
         };
         getuser();
       } else {
         window.location.href = "/api/spotify/login";
-        setConnected((prev) => ({ ...prev, spotify: true }));
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setConnected((prev) => ({ ...prev, spotify: true }));
     }
   };
   return (
