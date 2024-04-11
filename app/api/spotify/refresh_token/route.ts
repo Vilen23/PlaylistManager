@@ -30,7 +30,7 @@ const authOptions = {
     cookies().delete("spotify_token");
     cookies().set("spotify_token", response.data.access_token,{httpOnly:true} );
 
-    return NextResponse.json({ok:"ok"}, { status: 200 });
+    return NextResponse.json({token:response.data.access_token}, { status: 200 });
   } catch (error) {
     // console.error("Error refreshing token:", error);
     return new NextResponse("Error refreshing token", { status: 500 });

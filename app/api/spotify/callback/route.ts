@@ -1,6 +1,7 @@
 import axios from "axios";
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { setCookie } from "cookies-next";
+import { cookies } from "next/headers";
 
 export const GET = async (req: NextRequest, res: NextResponse) => {
   const { searchParams } = new URL(req.url);
@@ -38,6 +39,7 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
     const cookieOptions = {
       httpOnly: true,
     };
+    console.log("hello")
     cookies().set("spotify_token", token, cookieOptions);
     cookies().set("spotify_refresh_token", refreshToken, cookieOptions);
     return NextResponse.redirect("http://localhost:3000/ConnectMusic");

@@ -7,6 +7,7 @@ import { Check, CrossIcon } from "lucide-react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { spotifyUserAtom } from "@/Store/atoms/spotifyuser";
+import {setCookie , getCookies} from "cookies-next"
 export default function ConnectMusic() {
   const [connected, setConnected] = useRecoilState(connectedAtom);
   const [spotifyuser, setSpotifyUser] = useRecoilState(spotifyUserAtom);
@@ -17,6 +18,7 @@ export default function ConnectMusic() {
       if (!spotifyuser.display_name) {
         const getuser = async () => {
           const response = await axios.get("/api/spotify/refresh_token");
+          setCookie("spotify_token",response.data.token)
           const res = await axios.get("/api/spotify/getuser");
           setSpotifyUser(res.data);
           router.push("/dashboard");
