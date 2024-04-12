@@ -8,24 +8,29 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { spotifyUserAtom } from "@/Store/atoms/spotifyuser";
 import {setCookie , getCookies} from "cookies-next"
+
+
 export default function ConnectMusic() {
   const [connected, setConnected] = useRecoilState(connectedAtom);
   const [spotifyuser, setSpotifyUser] = useRecoilState(spotifyUserAtom);
   const router = useRouter();
-
+  console.log(connected.spotify)
   const handleSpotify = () => {
     try {
-      if (!spotifyuser.display_name) {
+      if (connected.spotify) {
         const getuser = async () => {
           const response = await axios.get("/api/spotify/refresh_token");
           setCookie("spotify_token",response.data.token)
           const res = await axios.get("/api/spotify/getuser");
+          console.log(res)
           setSpotifyUser(res.data);
           router.push("/dashboard");
           setConnected((prev) => ({ ...prev, spotify: true }));
         };
         getuser();
       } else {
+        setConnected((prev) => ({ ...prev, spotify: true }));
+        console.log(connected.spotify)
         window.location.href = "/api/spotify/login";
       }
     } catch (error) {
@@ -34,6 +39,8 @@ export default function ConnectMusic() {
       setConnected((prev) => ({ ...prev, spotify: true }));
     }
   };
+
+
   return (
     <div className="h-[70vh] w-[100vw] bg-[#111] flex justify-center items-center text-white overflow-x-hidden">
       <div className="flex flex-col gap-3 items-center w-[600px] shadow-2xl py-10  rounded-xl">

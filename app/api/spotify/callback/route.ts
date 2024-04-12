@@ -1,6 +1,5 @@
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
-import { setCookie } from "cookies-next";
 import { cookies } from "next/headers";
 
 export const GET = async (req: NextRequest, res: NextResponse) => {
@@ -15,10 +14,10 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
     url: "https://accounts.spotify.com/api/token",
     form: {
       code: code,
-      redirect_uri: process.env.SPOTIFY_REDIRECT_URI,
+      redirect_uri: "http://localhost:3000/api/spotify/callback",
       grant_type: "authorization_code",
     },
-    headers: {
+    headers: {  
       "content-type": "application/x-www-form-urlencoded",
       Authorization:
         "Basic " +
