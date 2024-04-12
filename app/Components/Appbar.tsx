@@ -19,9 +19,17 @@ export default  function Appbar() {
     }
   };
 
+  const handleConnect = ()=>{
+    if(session?.data?.user){
+      router.push("/ConnectMusic")
+    }else{
+      router.push("/signin")
+    }
+  }
+
   return (
-    <div className=" px-10 md:px-40">
-      <div className="w-full h-[120px] bg-transparent border-b border-white px-5 md:px-20 py-10 text-white flex justify-between items-center">
+    <div className=" px-5 md:px-40">
+      <div className="w-full h-[80px] md:h-[120px] bg-transparent border-b border-white px-5 md:px-20  text-white flex justify-between items-center">
         <h1 onClick={()=>{
           router.push("/")
         }} className={`${rubic.className} text-white font-extrabold  text-3xl md:text-5xl flex`}>
@@ -41,9 +49,7 @@ export default  function Appbar() {
             <li className="hover:text-[#39FF14] hover:scale-110 transition-all ease-in-out cursor-pointer">
               Your Playlists
             </li>
-            <li onClick={()=>{
-              router.push("/ConnectMusic")
-            }} className="hover:text-[#39FF14] flex hover:scale-110 items-center transition-all ease-in-out cursor-pointer">
+            <li onClick={handleConnect} className="hover:text-[#39FF14] flex hover:scale-110 items-center transition-all ease-in-out cursor-pointer">
               Connect your <span className="text-[#39FF14] "><Music2Icon height={20}/></span>
             </li>
           </ul>
