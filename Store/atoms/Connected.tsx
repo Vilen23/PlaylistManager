@@ -1,4 +1,7 @@
 import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
+
+const { persistAtom } = recoilPersist();
 
 export const connectedAtom = atom({
     key: "connected",
@@ -7,5 +10,6 @@ export const connectedAtom = atom({
         appleMusic: false,
         youtubeMusic: false,
         amazonMusic: false,
-    }
+    },
+    effects_UNSTABLE: [persistAtom],
 })

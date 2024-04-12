@@ -9,7 +9,7 @@ import { HoverCardTrigger } from "@radix-ui/react-hover-card";
 export default function SpotifyHeader() {
   const spotifyUser = useRecoilValue(spotifyUserAtom);
   const [hover, setHover] = useState(false);
-  console.log(spotifyUser.user);
+  // console.log(spotifyUser.user);
   return (
     <div className="w-[100vw] px-40">
       <div className=" h-[80px] flex items-center justify-between px-10">

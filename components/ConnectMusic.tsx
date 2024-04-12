@@ -7,39 +7,49 @@ import { Check, CrossIcon } from "lucide-react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { spotifyUserAtom } from "@/Store/atoms/spotifyuser";
-import {setCookie , getCookies} from "cookies-next"
-
+import { setCookie, getCookie } from "cookies-next";
 
 export default function ConnectMusic() {
   const [connected, setConnected] = useRecoilState(connectedAtom);
   const [spotifyuser, setSpotifyUser] = useRecoilState(spotifyUserAtom);
   const router = useRouter();
-  console.log(connected.spotify)
+  // console.log(connected.spotify);
   const handleSpotify = () => {
     try {
       if (connected.spotify) {
         const getuser = async () => {
           const response = await axios.get("/api/spotify/refresh_token");
-          setCookie("spotify_token",response.data.token)
+          setCookie("spotify_token", response.data.token);
           const res = await axios.get("/api/spotify/getuser");
-          console.log(res)
           setSpotifyUser(res.data);
           router.push("/dashboard");
-          setConnected((prev) => ({ ...prev, spotify: true }));
+          setConnected((prev: any) => ({ ...prev, spotify: true }));
         };
         getuser();
       } else {
-        setConnected((prev) => ({ ...prev, spotify: true }));
-        console.log(connected.spotify)
         window.location.href = "/api/spotify/login";
+        setConnected((prev: any) => ({ ...prev, spotify: true }));
+        try {
+          const getuser = async () => {
+            const response = await axios.get("/api/spotify/refresh_token");
+            setCookie("spotify_token", response.data.token);
+            const res = await axios.get("/api/spotify/getuser");
+            setSpotifyUser(res.data);
+            router.push("/dashboard");
+            setConnected((prev: any) => ({ ...prev, spotify: true }));
+          };
+          getuser();
+        } catch (error) {
+          setConnected((prev: any) => ({ ...prev, spotify: false }));
+          router.push("/ConnectMusic");
+        }
       }
     } catch (error) {
       console.log(error);
     } finally {
-      setConnected((prev) => ({ ...prev, spotify: true }));
+      setConnected((prev:any) => ({ ...prev, spotify: true }));
     }
   };
-
 
   return (
     <div className="h-[70vh] w-[100vw] bg-[#111] flex justify-center items-center text-white overflow-x-hidden">

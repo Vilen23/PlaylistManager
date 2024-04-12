@@ -22,10 +22,10 @@ export const GET =  async function(req:NextRequest){
                     'Authorization':`Bearer ${token}` 
                 }
             })
-            console.log(spotifyData.data.tracks.items[0].track.album.images);
+            // console.log(spotifyData.data.tracks.items[0].track.album.images);
             return  NextResponse.json(spotifyData.data.tracks.items,{status:200});
         } catch (error) {
-            console.log("Error in tokens",error);
+            // console.log("Error in tokens",error);
             return new NextResponse("ERROR",{status:500});
         }
     

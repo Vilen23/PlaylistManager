@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (req: NextRequest, res: NextResponse) => {
   const refreshToken = req.cookies.get("spotify_refresh_token");
-  console.log(refreshToken);
+  // console.log(refreshToken);
 const authOptions = {
     url: "https://accounts.spotify.com/api/token",
     headers: {
@@ -28,8 +28,6 @@ const authOptions = {
       headers: authOptions.headers,
     });
     cookies().delete("spotify_token");
-    cookies().set("spotify_token", response.data.access_token,{httpOnly:true} );
-
     return NextResponse.json({token:response.data.access_token}, { status: 200 });
   } catch (error) {
     // console.error("Error refreshing token:", error);
