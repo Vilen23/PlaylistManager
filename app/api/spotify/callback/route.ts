@@ -38,7 +38,7 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
     const cookieOptions = {
       httpOnly: true,
     };
-    console.log("hello")
+    // console.log("hello")
     cookies().set("spotify_token", token, cookieOptions);
     cookies().set("spotify_refresh_token", refreshToken, cookieOptions);
     return NextResponse.redirect("http://localhost:3000/ConnectMusic");

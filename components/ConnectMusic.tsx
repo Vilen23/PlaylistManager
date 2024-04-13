@@ -4,52 +4,72 @@ import Image from "next/image";
 import { useRecoilState } from "recoil";
 import { connectedAtom } from "@/Store/atoms/Connected";
 import { Check, CrossIcon } from "lucide-react";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { spotifyUserAtom } from "@/Store/atoms/spotifyuser";
-import { setCookie, getCookie } from "cookies-next";
+import { getUser } from "@/app/lib/spotifyconnect";
+import axios from "axios";
 
 export default function ConnectMusic() {
   const [connected, setConnected] = useRecoilState(connectedAtom);
   const [spotifyuser, setSpotifyUser] = useRecoilState(spotifyUserAtom);
   const router = useRouter();
   // console.log(connected.spotify);
-  const handleSpotify = () => {
-    try {
-      if (connected.spotify) {
-        const getuser = async () => {
-          const response = await axios.get("/api/spotify/refresh_token");
-          setCookie("spotify_token", response.data.token);
-          const res = await axios.get("/api/spotify/getuser");
-          setSpotifyUser(res.data);
-          router.push("/dashboard");
-          setConnected((prev: any) => ({ ...prev, spotify: true }));
-        };
-        getuser();
-      } else {
-        window.location.href = "/api/spotify/login";
-        setConnected((prev: any) => ({ ...prev, spotify: true }));
-        try {
-          const getuser = async () => {
-            const response = await axios.get("/api/spotify/refresh_token");
-            setCookie("spotify_token", response.data.token);
-            const res = await axios.get("/api/spotify/getuser");
-            setSpotifyUser(res.data);
-            router.push("/dashboard");
-            setConnected((prev: any) => ({ ...prev, spotify: true }));
-          };
-          getuser();
-        } catch (error) {
-          setConnected((prev: any) => ({ ...prev, spotify: false }));
-          router.push("/ConnectMusic");
+  // const handleSpotify = () => {
+  //   try {
+  //     if (connected.spotify) {
+  //       const getuser = async () => {
+  //         const response = await axios.get("/api/spotify/refresh_token");
+  //         setCookie("spotify_token", response.data.token);
+  //         const res = await axios.get("/api/spotify/getuser");
+  //         setSpotifyUser(res.data);
+  //         router.push("/dashboard");
+  //         setConnected((prev: any) => ({ ...prev, spotify: true }));
+  //       };
+  //       getuser();
+  //     } else {
+  //       window.location.href = "/api/spotify/login";
+  //       setConnected((prev: any) => ({ ...prev, spotify: true }));
+  //       try {
+  //         const getuser = async () => {
+  //           const response = await axios.get("/api/spotify/refresh_token");
+  //           setCookie("spotify_token", response.data.token);
+  //           const res = await axios.get("/api/spotify/getuser");
+  //           setSpotifyUser(res.data);
+  //           router.push("/dashboard");
+  //           setConnected((prev: any) => ({ ...prev, spotify: true }));
+  //         };
+  //         getuser();
+  //       } catch (error) {
+  //         setConnected((prev: any) => ({ ...prev, spotify: false }));
+  //         router.push("/ConnectMusic");
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     setConnected((prev:any) => ({ ...prev, spotify: true }));
+  //   }
+  // };
+
+  const handleSpotify = async () => {
+    if(!connected.spotify){
+      await getUser();
+      console.log("hello")
+      const token = localStorage.getItem("access_token");
+      console.log(token);
+      const res = await axios.get("/api/spotify/getuser", {
+        params: {
+          token: token
         }
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setConnected((prev:any) => ({ ...prev, spotify: true }));
+      });
+      console.log(res)
+      setSpotifyUser(res.data);
+      // setConnected((prev: { spotify: boolean }) => ({ ...prev, spotify: true }));
+      // router.push("/dashboard")
+    } else {
+      router.push("/dashboard");
     }
-  };
+  }
 
   return (
     <div className="h-[70vh] w-[100vw] bg-[#111] flex justify-center items-center text-white overflow-x-hidden">

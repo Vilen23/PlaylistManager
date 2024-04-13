@@ -46,9 +46,9 @@ export default function Signin() {
   };
   return (
     <div className="h-[70vh] w-[100vw] bg-[#111] flex justify-center items-center text-white overflow-x-hidden">
-      <div className="flex flex-col gap-3 items-center w-[600px] shadow-2xl py-10  rounded-xl">
+      <div className="flex flex-col gap-3 items-center w-[600px] shadow-2xl py-10  rounded-xl mt-20 md:mt-0">
         <h1 className="text-4xl font-extrabold">PlayIT</h1>
-        <p className="text-center text-xs">
+        <p className="text-center text-xs px-5 md:px-0">
           Login to get the enhanced experience while driving through your
           favourite music
         </p>
