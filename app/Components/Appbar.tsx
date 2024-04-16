@@ -41,10 +41,12 @@ export default  function Appbar() {
             <li onClick={()=>{
               router.push("/")
             }} className="hover:text-[#39FF14] hover:scale-110 transition-all ease-in-out cursor-pointer">
-              Home
+              Convert Playlist
             </li>
-            <li className="hover:text-[#39FF14] hover:scale-110 transition-all ease-in-out cursor-pointer">
-              Services
+            <li onClick={()=>{
+              router.push("/newReleases")
+            }} className="hover:text-[#39FF14] hover:scale-110 transition-all ease-in-out cursor-pointer">
+              Find new Music
             </li>
             <li className="hover:text-[#39FF14] hover:scale-110 transition-all ease-in-out cursor-pointer">
               Your Playlists
