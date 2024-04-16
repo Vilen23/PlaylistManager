@@ -42,13 +42,31 @@ export default function ExploreMusic() {
   }
 
   return (
-    <div className="flex justify-center mt-20 flex-col items-center">
-      <h1 className="text-[60px] font-bold">Explore New Music</h1>
+    <div className="flex justify-center mt-10 flex-col items-center">
+      <motion.div
+      viewport={{ once: true, amount: 0.5 }}
+      initial={{ opacity: 0, y: 200 }}
+      whileInView={{ opacity: 1, y: -70 }}
+      transition={{duration:1,type:'spring',stiffness:100,damping:20}}
+      className="center z-0">
+        <h2
+          className="center-text glitch is-glitching "
+          data-text="EXPLORE NEW"
+        >
+          EXPLORE <span>NEW</span>&nbsp;
+        </h2>
+        <h2
+          className="center-text glitch is-glitching"
+          data-text="MUSIC"
+        >
+          <span>MUSIC</span>
+        </h2>
+      </motion.div>
       <div className="w-[40rem] h-40 relative">
         <motion.div
           viewport={{ once: true, amount: 0.5 }}
-          initial={{ opacity: 0, x: -200 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: -200 }}
+          whileInView={{ opacity: 1, y: -70 }}
           transition={{
             duration: 1,
             type: "spring",
@@ -60,7 +78,7 @@ export default function ExploreMusic() {
         <motion.div
           viewport={{ once: true, amount: 0.5 }}
           initial={{ opacity: 0, x: 200 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          whileInView={{ opacity: 1, x: 0 ,y:-70 }}
           transition={{
             duration: 1,
             type: "spring",
@@ -72,7 +90,7 @@ export default function ExploreMusic() {
         <motion.div
           viewport={{ once: true, amount: 0.5 }}
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: -70 }}
           transition={{
             duration: 1,
             type: "spring",
@@ -84,7 +102,7 @@ export default function ExploreMusic() {
         <motion.div
           viewport={{ once: true, amount: 0.5 }}
           initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: -70 }}
           transition={{
             duration: 1,
             type: "spring",
@@ -93,6 +111,12 @@ export default function ExploreMusic() {
           }}
           className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-[#39FF14] to-transparent h-px w-1/4 "
         />
+        <motion.div 
+        viewport={{ once: true, amount: 0.5 }}
+        initial={{ opacity: 0}}
+        whileInView={{ opacity: 1, y: -70 }}
+        transition={{duration:1,type:'spring',stiffness:100,damping:20}}
+        >
         <SparklesCore
           background="transparent"
           minSize={0.4}
@@ -101,9 +125,10 @@ export default function ExploreMusic() {
           className="w-full h-full"
           particleColor="#FFFFFF"
         />
+        </motion.div>
         <div className="absolute inset-0 w-full h-full bg-[#111] [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
       </div>
-      <div>
+      <div className="mt-[-40px]">
         <Table>
           <TableHeader>
             <TableRow>
@@ -130,7 +155,7 @@ export default function ExploreMusic() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {songs.map((song) => {
+            {songs.map((song:any) => {
               return (
                 <TableRow key={song.id}>
                   <TableCell>
@@ -175,7 +200,7 @@ export default function ExploreMusic() {
                       }}
                       className="flex items-center gap-3"
                     >
-                      {song.artists.map((artist) => {
+                      {song.artists.map((artist:any) => {
                         return (
                           <p
                             onClick={() => handleArtist(artist)}

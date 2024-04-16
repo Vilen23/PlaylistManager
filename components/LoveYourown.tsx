@@ -6,14 +6,14 @@ import { motion } from "framer-motion";
 
 export default function LoveYourown() {
   return (
-    <div className="flex justify-center items-center mt-10 ">
+    <div className="flex justify-center items-center mt-10">
       {/* <div className={`text-[100px] font-semibold`}>LOVE YOUR</div> */}
       <motion.div 
       viewport={{ once: true, amount: 0.5 }}
       initial={{ opacity: 0, x: -200 }}
       whileInView={{ opacity: 1, x: 25 }}
       transition={{duration:1,type:'spring',stiffness:100,damping:20}}
-      className="center z-0">
+      className="center z-0" id="top">
         <h2
           className="center-text glitch is-glitching font-semibold"
           data-text="LOVE YOUR"
