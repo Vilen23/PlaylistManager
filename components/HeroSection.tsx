@@ -7,7 +7,6 @@ import CrouselAlbumCover from "./CrouselAlbumCover";
 import HeadingHero from "./HeadingHero";
 import { useRecoilValue } from "recoil";
 import { loadingHeroAtom } from "@/Store/atoms/loadingHero";
-import axios from "axios";
 
 export default function HeroSection() {
   const loading =  useRecoilValue(loadingHeroAtom);
@@ -16,7 +15,7 @@ export default function HeroSection() {
       <div className=" items-center justify-center bg-[#111] rounded-2xl w-[full] sm:flex hidden overflow-x-hidden">
         <TextRevealCard
           text="Add vibe to your song"
-          revealText="Love the way you lie"
+          revealText="Love your own taste"
           className="bg-[#111]"
         ></TextRevealCard>
       </div>
