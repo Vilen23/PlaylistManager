@@ -13,7 +13,7 @@ const generateRandomString = (num: number): string => {
 
 export async function GET(req: NextRequest) {
   const clientId = process.env.SPOTIFY_CLIENT_ID || '';
-  const redirectUri = 'http://localhost:3000/api/spotify/callback';
+  const redirectUri = 'http://localhost:3000/ConnectMusic';
   const state = generateRandomString(16);
   const scope = 'user-read-private user-read-email';
 

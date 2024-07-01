@@ -1,49 +1,56 @@
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 
 export const GET = async (req: NextRequest, res: NextResponse) => {
-  const { searchParams } = new URL(req.url);
-  var code = searchParams.get("code") || null;
-  var state = searchParams.get("state") || null;
+  const url = req.nextUrl;
+  const code = url.searchParams.get("code");
+  const state = url.searchParams.get("state");
 
+console.log(code,state);
   if (state === null) {
-    return NextResponse.redirect("/api/spotify/login");
-  }
-  var authOptions = {
-    url: "https://accounts.spotify.com/api/token",
-    form: {
-      code: code,
-      redirect_uri: "http://localhost:3000/api/spotify/callback",
-      grant_type: "authorization_code",
-    },
-    headers: {  
-      "content-type": "application/x-www-form-urlencoded",
-      Authorization:
-        "Basic " +
-        new Buffer(
-          process.env.SPOTIFY_CLIENT_ID +
-            ":" +
-            process.env.SPOTIFY_CLIENT_SECRET
-        ).toString("base64"),
-    },
-    json: true,
-  };
-  try {
-    const response = await axios.post(authOptions.url, authOptions.form, {
-      headers: authOptions.headers,
-    });
-    const token = response.data.access_token;
-    const refreshToken = response.data.refresh_token;
-    const cookieOptions = {
-      httpOnly: true,
+    return new NextResponse("No state given", { status: 409 });
+  } else {
+    const client_id = process.env.SPOTIFY_CLIENT_ID;
+    const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
+
+    var authOptions: {
+      url: string;
+      form: {
+        code: string | null;
+        redirect_uri: string;
+        grant_type: string;
+      };
+      headers: {
+        "content-type": string;
+        Authorization: string;
+      };
+      json: boolean;
+    } = {
+      url: "https://accounts.spotify.com/api/token",
+      form: {
+        code: code,
+        redirect_uri: "http://localhost:3000/ConnectMusic",
+        grant_type: "authorization_code",
+      },
+      headers: {
+        "content-type": "application/x-www-form-urlencoded",
+        Authorization:
+          "Basic " +
+          Buffer.from(client_id + ":" + client_secret).toString("base64"),
+      },
+      json: true,
     };
-    // console.log("hello")
-    cookies().set("spotify_token", token, cookieOptions);
-    cookies().set("spotify_refresh_token", refreshToken, cookieOptions);
-    return NextResponse.redirect("http://localhost:3000/ConnectMusic");
-  } catch (error) {
-    console.error("Error in tokens", error);
-    return new NextResponse("ERROR", { status: 500 });
+    try {
+      const response = await axios.post(authOptions.url, authOptions.form, {
+        headers: authOptions.headers,
+      });
+      console.log(response);
+      if (response.status === 200) {
+        return NextResponse.json(response.data, { status: 200 });
+      }
+    } catch (error) {
+      console.log(error);
+      return new NextResponse("Something happened so Error", { status: 500 });
+    }
   }
 };

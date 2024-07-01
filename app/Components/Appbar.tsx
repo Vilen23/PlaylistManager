@@ -19,12 +19,17 @@ export default  function Appbar() {
     }
   };
 
+  // const handleConnect = ()=>{
+  //   if(session?.data?.user){
+  //     router.push("/ConnectMusic")
+  //   }else{
+  //     router.push("/signin")
+  //   }
+  // }
   const handleConnect = ()=>{
-    if(session?.data?.user){
+
       router.push("/ConnectMusic")
-    }else{
-      router.push("/signin")
-    }
+
   }
 
   return (
