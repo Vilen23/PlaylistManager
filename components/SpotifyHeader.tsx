@@ -18,7 +18,7 @@ export default function SpotifyHeader() {
             onClick={() => {
               window.open(spotifyUser.user.external_urls.spotify);
             }}
-            src={spotifyUser.user.images[0].url}
+            src={spotifyUser.images[0].url}
             alt="imageuser"
             height={40}
             width={40}
@@ -27,14 +27,14 @@ export default function SpotifyHeader() {
           <div className="relative">
             <p
               onClick={() => {
-                window.open(spotifyUser.user.external_urls.spotify);
+                window.open(spotifyUser.external_urls.spotify);
               }}
               className="text-2xl font-semibold w-fit hover:underline cursor-pointer"
             >
-              {spotifyUser.user.display_name}
+              {spotifyUser.display_name}
             </p>
             <p className={`text-[10px] text-[#39FF14] absolute left-5 `}>
-              {spotifyUser.user.product}
+              {spotifyUser.product}
             </p>
           </div>
           <div>
@@ -44,7 +44,7 @@ export default function SpotifyHeader() {
         <div>
           <HoverCard>
             <HoverCardTrigger className="text-xl text-[#39FF14] cursor-pointer">Email</HoverCardTrigger>
-            <HoverCardContent className="text-sm bg-[#111] border-[1px] ">{spotifyUser.user.email}</HoverCardContent>
+            <HoverCardContent className="text-sm bg-[#111] border-[1px] ">{spotifyUser.email}</HoverCardContent>
           </HoverCard>
         </div>
       </div>

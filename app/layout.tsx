@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
-import Appbar from "./Components/Appbar";
+import Appbar from "../components/Appbar";
 
 const inter = Poppins({ subsets: ["latin"], weight: "500" });
 

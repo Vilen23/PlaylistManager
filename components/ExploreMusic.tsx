@@ -16,7 +16,7 @@ import { SparklesCore } from "./ui/sparkles";
 import { motion } from "framer-motion";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { loadingAtom } from "@/Store/atoms/loadingRelease";
-import { newReleaseAtom } from "@/Store/atoms/newRelease";
+import { newReleaseAtom } from "@/app/Store/atoms/newRelease";
 const pop = Poppins({ weight: "600", subsets: ["latin"] });
 interface song {
   id: string;

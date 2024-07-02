@@ -22,7 +22,7 @@ export default function CrouselAlbumCover() {
         try {
             setLoading(true);
             const fetchSongs = async ()=>{
-                const response = await axios.get("/api/spotify-token");
+                const response = await axios.get("/api/spotify/topsongs");
                 setSongs(response.data)
                 console.log(response.data[0].track)
             }

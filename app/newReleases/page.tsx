@@ -5,7 +5,7 @@ import LoveYourown from "@/components/LoveYourown";
 import ExploreMusic from "@/components/ExploreMusic";
 import { useRecoilState } from "recoil";
 import { loadingAtom } from "@/Store/atoms/loadingRelease";
-import { newReleaseAtom } from "@/Store/atoms/newRelease";
+import { newReleaseAtom } from "@/app/Store/atoms/newRelease";
 import {
   Pagination,
   PaginationContent,
@@ -50,7 +50,7 @@ export default function page() {
      <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious onClick={()=>{
+            <PaginationPrevious className="cursor-pointer" onClick={()=>{
               if(offset==0){
                 setOffset(80);
               }else setOffset(offset-20);
@@ -60,7 +60,7 @@ export default function page() {
 
           </PaginationEllipsis>
           <PaginationItem>
-            <PaginationNext  onClick={()=>{
+            <PaginationNext className="cursor-pointer" onClick={()=>{
               if(offset==80){
                 setOffset(0);
               }else{

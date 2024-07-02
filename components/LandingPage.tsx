@@ -8,7 +8,7 @@ import HeadingHero from "./HeadingHero";
 import { useRecoilValue } from "recoil";
 import { loadingHeroAtom } from "@/Store/atoms/loadingHero";
 
-export default function HeroSection() {
+export default function LandingPage() {
   const loading =  useRecoilValue(loadingHeroAtom);
   return (
     <div>

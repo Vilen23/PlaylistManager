@@ -27,9 +27,7 @@ export default  function Appbar() {
   //   }
   // }
   const handleConnect = ()=>{
-
       router.push("/ConnectMusic")
-
   }
 
   return (
