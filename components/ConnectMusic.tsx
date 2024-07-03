@@ -20,15 +20,6 @@ export default function ConnectMusic() {
   const router = useRouter();
   const params = useSearchParams();
 
-  // console.log(spotifyUserToken.accessToken);
-  // useEffect(() => {
-  //   if (!spotifyUserToken.accessToken) {
-  //     setConnected({ ...connected, spotify: false });
-  //   } else {
-  //     setConnected({ ...connected, spotify: true });
-  //   }
-  // }, [spotifyUserToken]);
-
   useEffect(() => {
     const code = params.get("code");
     const state = params.get("state");
@@ -51,13 +42,12 @@ export default function ConnectMusic() {
     if (!connected.spotify) {
       router.push("/api/spotify/connectUser");
     } else {
-      const refreshToken = await refreshUserToken(
+      const token = await refreshUserToken(
         spotifyUserToken.refresh_token
       );
-      console.log(refreshToken);
-      setSpotifyUserToken(refreshToken);
+      setSpotifyUserToken(token);
       const user = await getUser({
-        accessToken: refreshToken.access_token,
+        access_token: token.access_token,
       });
       setSpotifyUser(user);
       router.push("/dashboard");

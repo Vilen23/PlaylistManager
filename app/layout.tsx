@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Oswald } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import Appbar from "../components/Appbar";
 
-const inter = Poppins({ subsets: ["latin"], weight: "500" });
+const inter = Oswald({ subsets: ["latin"], weight: "500" });
 
 export const metadata: Metadata = {
   title: "Create Next App",

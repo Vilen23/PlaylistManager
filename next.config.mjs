@@ -21,6 +21,15 @@ const nextConfig = {
                 protocol:'https',
                 hostname:"i.scdn.co",
                 port:''
+            },
+            {
+                protocol:"https",
+                hostname:'mosaic.scdn.co',
+                port:''
+            },{
+                protocol:'https',
+                hostname:'image-cdn-ak.spotifycdn.com',
+                port:''
             }
         ]
     }

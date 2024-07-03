@@ -15,3 +15,8 @@ export const spotifyUserAtom = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const spotifyUserPlaylistsAtom = atom({
+  key: "spotifyUserPlaylists",
+  default: {},
+  effects_UNSTABLE: [persistAtom],
+});
