@@ -7,7 +7,6 @@ export const getUser = async ({ access_token }: { access_token: string }) => {
         Authorization: `Bearer ${access_token}`,
       },
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {}
 };
@@ -32,7 +31,6 @@ export const refreshUserToken = async (refresh_token: string) => {
         },
       }
     );
-    console.log(getNewToken.data);
     return getNewToken.data;
   } catch (error) {
     console.log(error);
@@ -53,7 +51,6 @@ export const getUsersPlaylist = async ({
         Authorization: `Bearer ${access_token}`,
       },
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);
