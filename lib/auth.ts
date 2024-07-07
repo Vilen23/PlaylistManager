@@ -24,6 +24,7 @@ export const NEXT_AUTH = {
         },
       },
       async authorize(credentials: any) {
+        console.log(credentials);
         const hashedpassword = await bycrpt.hash(credentials.password, 10);
         const existingUser = await prisma.user.findFirst({
           where: {
@@ -65,7 +66,7 @@ export const NEXT_AUTH = {
     },
     async signIn(user: any) {
       if (user.account.provider === "github") {
-        const { login, email, avatar_url ,name } = user.profile;
+        const { login, email, avatar_url, name } = user.profile;
         const existingUser = await prisma.user.findFirst({
           where: {
             name: login,
@@ -83,7 +84,7 @@ export const NEXT_AUTH = {
             },
           });
         }
-      } else {
+      } else if (user.account.provider === "discord") {
         const { username, email, image_url } = user.profile;
         const existingUser = await prisma.user.findFirst({
           where: {

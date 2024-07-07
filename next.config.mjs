@@ -30,6 +30,10 @@ const nextConfig = {
                 protocol:'https',
                 hostname:'image-cdn-ak.spotifycdn.com',
                 port:''
+            },{
+                protocol:'https',
+                hostname:'p.scdn.co',
+                port:''
             }
         ]
     }

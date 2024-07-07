@@ -5,7 +5,7 @@ import LoveYourown from "@/components/LoveYourown";
 import ExploreMusic from "@/components/ExploreMusic";
 import { useRecoilState } from "recoil";
 import { loadingAtom } from "@/Store/atoms/loadingRelease";
-import { newReleaseAtom } from "@/app/Store/atoms/newRelease";
+import { newReleaseAtom } from "@/Store/atoms/newRelease";
 import {
   Pagination,
   PaginationContent,

@@ -14,7 +14,10 @@ interface signinProps {
 
 export default function Signin() {
   const router = useRouter();
-  const [user, setUser] = useState<signinProps>();
+  const [user, setUser] = useState<signinProps>({
+    username: "",
+    password: "",
+  });
   const session = useSession();
   useEffect(() => {
     if (session?.data?.user) {
@@ -81,7 +84,7 @@ export default function Signin() {
             onChange={(e: any) => {
               setUser((c: any) => ({ ...c, password: e.target.value }));
             }}
-            type="text"
+            type="password"
             id="password"
             className="bg-gray-50 rounded-[60px] text-gray-900 text-sm  focus:ring-0 focus:ring-offset-0 focus:border-0 block w-full p-3.5"
             placeholder="Strong Password"
@@ -95,7 +98,10 @@ export default function Signin() {
           <p className={mont.className}>Sign in</p>
         </button>
         <div className="flex  text-black px-3 py-2 gap-5 items-center ">
-          <button onClick={handleGithubSignin} className="rounded-xl bg-white flex px-3 py-2 gap-2 items-center text-xl hover:scale-105 transition-all ease-in-out duration-500">
+          <button
+            onClick={handleGithubSignin}
+            className="rounded-xl bg-white flex px-3 py-2 gap-2 items-center text-xl hover:scale-105 transition-all ease-in-out duration-500"
+          >
             <span>
               <GithubIcon />
             </span>
